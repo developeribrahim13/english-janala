@@ -85,9 +85,9 @@
         <section class="max-w-11/12 mx-auto flex flex-col-reverse lg:flex-row justify-between gap-5">
             <div class="flex flex-col gap-5 justify-center items-center lg:items-start">
                 <h1 class="font-extrabold text-4xl"><span class="text-sky-400">English</span> is Easy!!</h1>
-                <P class="font-bangla text-[#18181b90] font-medium text-base">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু
-                    করুন। আপনি যদি নতুন হন অথবা<br>আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে
-                    নিয়ে<br>যাবে অন্য একটি Level এ</P>
+                <P class="font-bangla text-[#18181b90] text-center lg:text-left font-medium text-base">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু
+                    করুন। আপনি যদি নতুন হন অথবা আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে
+                    নিয়ে যাবে অন্য একটি Level এ</P>
                 <fildeset class="flex flex-col gap-4 w-full">
                     <input class="rounded-lg border-gray-200 py-3 px-2 w-6/10" type="text"
                         placeholder="Enter your name">
@@ -96,18 +96,27 @@
                     <button class="btn btn-primary w-3/10">Get Started</button>
                 </fildeset>
             </div>
-            <div class="w-2/5"><img src="./assets/hero-student.png"></div>
+            <div class="w-5/6 lg:w-2/5"><img src="./assets/hero-student.png"></div>
         </section>
         <!-- banner section end -->
     </header>
 
     <main class="my-32">
-        <section>
+        <section class="max-11/12 mx-auto">
+            
+            <h1 class="font-extrabold text-xl md:text-4xl mb-8 flex justify-center"><span
+                class="text-sky-400">Let's</span>&nbsp;Learn Vocabularies</h1>
+
+            <!-- buttongulo -->
+            <div id="buttoner-somahar" class="max-w-11/12 mx-auto flex flex-wrap justify-center items-center gap-4"></div>
+
+            <!--  vocabulary er card gulo -->
+            <div id="vocabularies" class="max-w-11/12 mx-auto rounded-md bg-gray-50 mt-6 p-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"></div>
 
         </section>
 
         <!-- frequently asked qstn -->
-        <h1 class="font-extrabold text-4xl mb-14 flex justify-center"><span
+        <h1 class="font-extrabold text-xl md:text-4xl mt-56 mb-14 flex justify-center"><span
                 class="text-sky-400">Frequently</span>&nbsp;Asked Questions</h1>
         <section class="max-w-11/12 mx-auto space-y-3">
             <div class="collapse collapse-plus bg-base-100 border border-base-300">
@@ -165,7 +174,7 @@
             </div>
         </div>
     </footer>
-
+<script src="./javascript/karsaji.js"></script>
 </body>
 
 </html>
