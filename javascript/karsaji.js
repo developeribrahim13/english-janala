@@ -18,6 +18,23 @@ const buttonPressKorlore = (nmbr) => {
 // level number unujai sobdartho collect korchi
 
 
+// word meaning er details collect kora
+const pressDetails = (idNmbr) => {
+    fetch(`https://openapi.programming-hero.com/api/word/${idNmbr}`)
+    .then(rspns => rspns.json())
+    .then(details => showMeanigDetails(details.data))
+}
+// word meaning er details collect korchi
+
+
+// modal close korar function
+const closeModal = () => {
+    const modal = document.getElementById('meaning-modal');
+    modal.innerHTML = "";
+}
+// modal close koral funciton
+
+
 // all data collect korar por display korchi
 const displayData = (datas) => {
     const buttongulo = document.getElementById('buttoner-somahar');
@@ -63,7 +80,7 @@ const displayWords = (words) => {
                     <p class="flex justify-center my-3">Meaning /Pronounciation</p>
                     <h1 class="flex justify-center font-semibold text-xl font-bangla text-[#18181b80]">"${elmnt.meaning ? elmnt.meaning : "অর্থ খুজে পাওয়া যায়নি!"} / ${elmnt.pronunciation ? elmnt.pronunciation : "উচ্চারণ খুঁজে পাওয়া যায়নি!" }"</h1>
                     <div class="flex justify-between mt-8">
-                        <button class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-circle-info"></i></button>
+                        <button onclick = pressDetails(${elmnt.id}) class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-circle-info"></i></button>
                         <button class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                 </div>      
@@ -73,3 +90,36 @@ const displayWords = (words) => {
     // sobdarhto pawa gele card akare add kore dibe
 }
 // level unujai sobdartho collect korar por appen korchi
+
+
+
+// details take modal akare show kora
+const showMeanigDetails = (details) => {
+    const modal = document.getElementById('meaning-modal');
+    modal.innerHTML = "";
+        const div = document.createElement('div');
+        div.classList.add("fixed", "inset-0", "bg-black/50", "flex", "items-center", "justify-center", "z-[100]")
+        div.innerHTML = `
+        <div class="bg-white rounded-3xl p-12 flex flex-col items-start text-center w-full max-w-xl shadow-2xl mx-4">
+
+            <h2 class="text-2xl font-bold mb-6 text-[#111111]">${details.word} (<i class="fa-solid fa-microphone"></i>: ${details.pronunciation})</h2>
+            <h3 class="text-base font-medium text-[#111111] mb-2">Meaning</h3>
+            <p class="text-gray-500 text-lg font-medium mb-2 font-bangla">${details.meaning}</p>
+            <h3 class="text-base font-medium text-[#111111] mb-2">Example</h3>
+            <p class="text-gray-500 text-base font-medium mb-4">${details.sentence}</p>
+            <h2 class="text-black text-lg font-medium mb-2 font-bangla">সমার্থক শব্দগুলো</h2>
+            <ul>
+                <li class="btn font-normal">Enthusiastic</li>
+                <li class="btn font-normal">Enthusiastic</li>
+                <li class="btn font-normal">Enthusiastic</li>
+            </ul>
+
+            <button id="close-modal-btn" onclick = closeModal()
+                class="px-10 py-4 mt-3 btn btn-primary rounded-xl font-medium text-lg text-[#ffffff] cursor-pointer">
+                Complete Learning
+            </button>
+        </div>
+        `;
+        modal.append(div);
+}
+// details take modal akare show kortechi
