@@ -35,6 +35,17 @@ const closeModal = () => {
 // modal close koral funciton
 
 
+// voice add korechi..
+function pressVoice(word) {
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+// voice add kora hoyeche
+
+
+
 // all data collect korar por display korchi
 const displayData = (datas) => {
     const buttongulo = document.getElementById('buttoner-somahar');
@@ -43,7 +54,7 @@ const displayData = (datas) => {
         const div = document.createElement('div');
         // button a onclick set kore dichi, jate click kora matroi lesson er wordmeaning gulo collect korte pari
         div.innerHTML = `
-        <button onclick = buttonPressKorlore(${element.level_no}) class="btn btn-primary btn-outline" href=""><i class="fa-solid fa-book-open"></i>Lesson - ${element.level_no}</button>
+        <button onclick = "buttonPressKorlore(${element.level_no})" class="btn btn-primary btn-outline" href=""><i class="fa-solid fa-book-open"></i>Lesson - ${element.level_no}</button>
         `;
     buttongulo.append(div);
     });
@@ -80,8 +91,8 @@ const displayWords = (words) => {
                     <p class="flex justify-center my-3">Meaning /Pronounciation</p>
                     <h1 class="flex justify-center font-semibold text-xl font-bangla text-[#18181b80]">"${elmnt.meaning ? elmnt.meaning : "অর্থ খুজে পাওয়া যায়নি!"} / ${elmnt.pronunciation ? elmnt.pronunciation : "উচ্চারণ খুঁজে পাওয়া যায়নি!" }"</h1>
                     <div class="flex justify-between mt-8">
-                        <button onclick = pressDetails(${elmnt.id}) class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-circle-info"></i></button>
-                        <button class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick = "pressDetails(${elmnt.id})" class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-circle-info"></i></button>
+                        <button onclick = "pressVoice('${elmnt.word}')" class="btn bg-blue-50 hover:bg-blue-300"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                 </div>      
         `;
@@ -102,19 +113,27 @@ const showMeanigDetails = (details) => {
         div.innerHTML = `
         <div class="bg-white rounded-3xl p-12 flex flex-col items-start text-center w-full max-w-xl shadow-2xl mx-4">
 
-            <h2 class="text-2xl font-bold mb-6 text-[#111111]">${details.word} (<i class="fa-solid fa-microphone"></i>: ${details.pronunciation})</h2>
-            <h3 class="text-base font-medium text-[#111111] mb-2">Meaning</h3>
-            <p class="text-gray-500 text-lg font-medium mb-2 font-bangla">${details.meaning}</p>
-            <h3 class="text-base font-medium text-[#111111] mb-2">Example</h3>
-            <p class="text-gray-500 text-base font-medium mb-4">${details.sentence}</p>
-            <h2 class="text-black text-lg font-medium mb-2 font-bangla">সমার্থক শব্দগুলো</h2>
-            <ul>
-                <li class="btn font-normal">Enthusiastic</li>
-                <li class="btn font-normal">Enthusiastic</li>
-                <li class="btn font-normal">Enthusiastic</li>
-            </ul>
+            <h2 class="text-2xl font-bold mb-6 text-[#111111]">${details.word?details.word:`<p class="font-bangla text-red-400 font-normal">কোনো শব্দ খুঁজে পাওয়া যায়নি!<p>`} (<i class="fa-solid fa-microphone"></i>: ${details.pronunciation?details.pronunciation:`<p class="font-bangla text-red-400 font-normal">কোনো উচ্চারণ খুঁজে পাওয়া যায়নি!<p>`})</h2>
 
-            <button id="close-modal-btn" onclick = closeModal()
+            <h3 class="text-base font-medium text-[#111111] mb-2">Meaning</h3>
+
+            <p class="text-gray-500 text-lg font-medium mb-2 font-bangla">${details.meaning?details.meaning:`<p class="font-bangla text-red-400 font-normal">কোনো অর্থ খুঁজে পাওয়া যায়নি!<p>`}</p>
+
+            <h3 class="text-base font-medium text-[#111111] mb-2">Example</h3>
+
+            <p class="text-gray-500 text-base font-medium mb-4">${details.sentence?details.sentence:`<p class="font-bangla text-red-400 font-normal">কোনো বাক্য খুঁজে পাওয়া যায়নি!<p>`}</p>
+
+            <h2 class="text-black text-lg font-medium mb-2 font-bangla">সমার্থক শব্দগুলো</h2>
+
+            <ul class="space-x-2">
+            ${details.synonyms.length != 0?
+                details.synonyms.map(synnm => `<li onclick = "pressVoice('${synnm}')" class="btn font-normal">${synnm}</li>`).join("")
+                :
+                `<p class="font-bangla text-red-400 font-normal">কোনো সমার্থক শব্দ খুঁজে পাওয়া যায়নি!<p>`
+              }
+            </ul>
+            
+            <button id="close-modal-btn" onclick = "closeModal()"
                 class="px-10 py-4 mt-3 btn btn-primary rounded-xl font-medium text-lg text-[#ffffff] cursor-pointer">
                 Complete Learning
             </button>
