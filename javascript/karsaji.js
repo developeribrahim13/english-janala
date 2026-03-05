@@ -10,7 +10,11 @@ alldatacollect();
 
 
 // level number unujai sobdartho collect korchi
-const buttonPressKorlore = (nmbr) => {
+const buttonPressKorlore = (nmbr,mew) => {
+    // button er focus dhore rakhar jonno mew te this keyword diye buttoner referenc nichi then setake dhore class add korchi.. ar queryselectorall diye node list a travle kore sobulote class remove kore dichi
+ document.querySelectorAll('.lessons').forEach(elmnt => {elmnt.classList.remove("bg-blue-800", "text-white")});
+ mew.classList.add("bg-blue-800", "text-white");
+
  fetch(`https://openapi.programming-hero.com/api/level/${nmbr}`)
  .then(rspns => rspns.json())
  .then(words => displayWords(words.data));
@@ -54,7 +58,7 @@ const displayData = (datas) => {
         const div = document.createElement('div');
         // button a onclick set kore dichi, jate click kora matroi lesson er wordmeaning gulo collect korte pari
         div.innerHTML = `
-        <button onclick = "buttonPressKorlore(${element.level_no})" class="btn btn-primary btn-outline" href=""><i class="fa-solid fa-book-open"></i>Lesson - ${element.level_no}</button>
+        <button onclick = "buttonPressKorlore(${element.level_no},this)" class="btn btn-primary btn-outline lessons" href=""><i class="fa-solid fa-book-open"></i>Lesson - ${element.level_no}</button>
         `;
     buttongulo.append(div);
     });
@@ -132,7 +136,7 @@ const showMeanigDetails = (details) => {
                 `<p class="font-bangla text-red-400 font-normal">কোনো সমার্থক শব্দ খুঁজে পাওয়া যায়নি!<p>`
               }
             </ul>
-            
+
             <button id="close-modal-btn" onclick = "closeModal()"
                 class="px-10 py-4 mt-3 btn btn-primary rounded-xl font-medium text-lg text-[#ffffff] cursor-pointer">
                 Complete Learning
